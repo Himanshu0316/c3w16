@@ -1,9 +1,7 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, Routes } from "react-router-dom";
 import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
-import { About } from "./About";
-import { Login } from "./Login";
 
 
 
@@ -14,13 +12,11 @@ export const Navbar = () => {
   return (
     <>
       <nav>
-      <Routes>
-        <Route path="Home" element={<Home/>}/>
-        <Route path="About" element={<About/>}/>
-        <Route path="Books/*" element={<Books/>}/>
-        <Route path="Login/*" element={<Login/>}/>
-      </Routes>
-        
+        {/* keep all the NavLinks here */}
+       <Link to="Home">Home</Link>
+       <Link to="About">About</Link>
+       <Link to="Books">Books</Link>
+       <Link to="Login">Login</Link>
       </nav>
     </>
   );

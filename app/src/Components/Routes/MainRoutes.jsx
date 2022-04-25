@@ -17,6 +17,12 @@ const Mainroutes = () => {
       <Routes>
        {/* keep all the routes here  */}
        {/* /books/* route need to be protected */}
+      
+        <Route path="Home" element={<Home/>}/>
+        <Route path="About" element={<About/>}/>
+        <Route path="Books/*" element={<Books/>}/>
+        <Route path="Login/*" element={<Login/>}/>
+        
       </Routes>
     </>
   );

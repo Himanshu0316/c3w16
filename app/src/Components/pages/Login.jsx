@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+//import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { Form } from "./EditBookData";
 
@@ -23,10 +23,11 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(email, password);
+    setToken(token)
   };
   useEffect(() => {
     if (token) {
-      navigate(from, { replace: true });
+      navigate(<Books/>);
     }
   }, [token]);
   return (
