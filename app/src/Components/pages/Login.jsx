@@ -9,15 +9,14 @@ import { Form } from "./EditBookData";
 
 // add input styling
 export const Input = styled.input`
-margin-top:10px;
-width:150px;
-height:30px; 
-border:1px solid red;
-display: flex;
-margin-left: 30%;
-background-color: lightgreen;
+  background: #9bbabd;
+  width: 80%;
+  padding: 10px 4px;
+  font-size: 20px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
 `;
-
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,7 +34,6 @@ export const Login = () => {
       navigate(from, { replace: true });
     }
   }, [token]);
-  
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -53,7 +51,7 @@ export const Login = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Input value = "Login" type={"submit"} data-testid="login-form-submit" />
+        <Input value="Login" type={"submit"} data-testid="login-form-submit" />
       </Form>
     </>
   );
