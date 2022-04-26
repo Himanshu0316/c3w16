@@ -1,46 +1,45 @@
-//import axios from "axios";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Input } from "./Login";
 
 // add style for form
-export const Form = styled.form`
-width:800px,
-hight:500px,
-`;
+export const Form = styled.form``;
 // add style for text area
 export const Textarea = styled.textarea`
-width:400px,
-hight:300px,
+  background: #9bbabd;
+  width: 80%;
+  padding: 10px 4px;
+  font-size: 20px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
 `;
 
 export const EditBookData = () => {
-  const [newData,setNewData] = useState(false)
-  const handleUpdate = (e) => {
-   
-    try{
-      e.preventDefault();
-    let res = await fetch(`http://localhost:8080/books/${id}`,{
-      method:"PATCH",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        thumbnailUrl:value,
-        disc:value
-      }),
-    });
-    // let data = await res.json()
-    // setNewData(true)
-  }catch(e){
-    console.log(e)
-  }
-  }
-    // if(newData){
-    //   <Books/>
-    // }
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [longDescription, setLongDescription] = useState("");
+  const navigate = useNavigate();
+  const params = useParams();
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     // make a PATCH request to http://localhost:8080/books/${id} and update thubnail and long description fields
     // on successfull request navigate to previous page
- 
+    try {
+      let res = await fetch(`http://localhost:8080/books/${params.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          thumbnailUrl,
+          longDescription,
+        }),
+      });
+      navigate("/books");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -48,15 +47,17 @@ export const EditBookData = () => {
         <Input
           data-testid="update-form-thumbnail"
           placeholder="Enter updated thumbnail url"
-          // value = {value}
+          value={thumbnailUrl}
+          onChange={(e) => setThumbnailUrl(e.target.value)}
         />
         <Textarea
           data-testid="update-form-description"
           placeholder="Update long Description"
-          // value = {value}
+          value={longDescription}
+          onChange={(e) => setLongDescription(e.target.value)}
         />
         <Input dat-testid="update-form-submit" type="submit" value="Update" />
       </Form>
     </>
-  )
-}
+  );
+};

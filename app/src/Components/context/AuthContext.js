@@ -1,41 +1,34 @@
-//import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-
+// import axios from "axios";
+import React, { useState } from "react";
+import { createContext } from "react";
 const AuthContext = React.createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
-  const [isLogin ,setIsLogin] = useState(false)
-  const handleLogin = async(email, password) => {
-    const {logout}= useContext(AuthContext)
+
+  const handleLogin = (email, password) => {
+    //  api request to reqres.in for the token
+
+    fetch(`https://reqres.in/api/login`,{
+      method: 'POST',
+      headers: {"content-type":"application/json"},
+      body: JSON.stringify({
+         email,
+        password
+      })
+    }).then(res=>res.json()).then(data=>setToken(data.token))
+
+   
     
-    try{
-      let res = await fetch(`https://reqres.in/api/login`,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          emails:email,
-          pass:password,
-        })
-      });
-      let data =await res.json();
-      
-        setToken(token)
-      
-    }catch(e){
-      console.log(e)
-    }
   };
   const handleLogout = () => {
     //  set token back to " " once logged out
+    setToken(" ")
   };
 
   const value = { handleLogin, token, handleLogout };
 
-  return <AuthContext.Provider value={value}>
-    {children}
-  </AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext, AuthContextProvider };

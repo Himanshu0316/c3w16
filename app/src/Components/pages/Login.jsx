@@ -3,13 +3,19 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-//import styled from "styled-components";
+import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { Form } from "./EditBookData";
 
 // add input styling
 export const Input = styled.input`
- 
+margin-top:10px;
+width:150px;
+height:30px; 
+border:1px solid red;
+display: flex;
+margin-left: 30%;
+background-color: lightgreen;
 `;
 
 
@@ -23,13 +29,13 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(email, password);
-    setToken(token)
   };
   useEffect(() => {
     if (token) {
-      navigate(<Books/>);
+      navigate(from, { replace: true });
     }
   }, [token]);
+  
   return (
     <>
       <Form onSubmit={handleSubmit}>
